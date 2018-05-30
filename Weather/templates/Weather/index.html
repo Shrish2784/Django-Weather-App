@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'Weather/style.css' %}">
+  <title>Weather</title>
+</head>
+<body>
+  <header>
+    <h1>Weather</h1>
+  </header>
+  <section>
+    <div id="note">
+      <h3>Find out the Weather.</h3>
+    </div>
+    <div id="search">
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button id="submitButton" type="submit">Add City</button>
+      </form>
+    </div>
+  </section>
+  {% if weather %}
+    {% for city in weather %}
+      <div id="weather">
+        <span id="city" >
+          {{ city.name }}
+        </span>
+        <p><small>{{ city.desc }}</small> <br> <span id="temp">{{ city.temp }} 'C</span></p>
+      </div>
+    {% endfor %}
+  {% endif %}
+</body>
+</html>
